@@ -1,1 +1,1 @@
-export * from "./vue-apollo";
+export * from './vue-apollo';

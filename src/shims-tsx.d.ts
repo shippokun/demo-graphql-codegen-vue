@@ -1,5 +1,5 @@
-import Vue, { VNode } from "vue";
-import { ComponentRenderProxy } from "@vue/composition-api";
+import Vue, { VNode } from 'vue';
+import { ComponentRenderProxy } from '@vue/composition-api';
 
 declare global {
   namespace JSX {

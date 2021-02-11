@@ -1,10 +1,10 @@
-import Vue from "vue";
-import { provide } from "@vue/composition-api";
-import { DefaultApolloClient } from "@vue/apollo-composable";
+import Vue from 'vue';
+import { provide } from '@vue/composition-api';
+import { DefaultApolloClient } from '@vue/apollo-composable';
 
-import App from "./App.vue";
-import store from "./store";
-import { apolloProvider } from "./plugins";
+import App from './App.vue';
+import store from './store';
+import { apolloProvider } from './plugins';
 
 Vue.config.productionTip = false;
 
@@ -13,5 +13,5 @@ new Vue({
   setup() {
     provide(DefaultApolloClient, apolloProvider);
   },
-  render: (h) => h(App),
-}).$mount("#app");
+  render: h => h(App),
+}).$mount('#app');

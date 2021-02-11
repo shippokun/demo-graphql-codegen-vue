@@ -2,9 +2,13 @@ import gql from 'graphql-tag';
 import * as VueApolloComposable from '@vue/apollo-composable';
 import * as VueCompositionApi from '@vue/composition-api';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
 export type ReactiveFunction<TParam> = () => TParam;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -22,11 +26,9 @@ export type Query = {
   filterPosts?: Maybe<Array<Maybe<Post>>>;
 };
 
-
 export type QueryPostArgs = {
   where: PostWhereUniqueInput;
 };
-
 
 export type QueryFilterPostsArgs = {
   searchString?: Maybe<Scalars['String']>;
@@ -40,23 +42,19 @@ export type Mutation = {
   publish?: Maybe<Post>;
 };
 
-
 export type MutationSignupUserArgs = {
   data: UserCreateInput;
 };
 
-
 export type MutationDeleteOnePostArgs = {
   where: PostWhereUniqueInput;
 };
-
 
 export type MutationCreateDraftArgs = {
   title: Scalars['String'];
   content?: Maybe<Scalars['String']>;
   authorEmail: Scalars['String'];
 };
-
 
 export type MutationPublishArgs = {
   id?: Maybe<Scalars['Int']>;
@@ -107,37 +105,38 @@ export type PostCreateOrConnectWithoutauthorInput = {
   create: PostCreateWithoutAuthorInput;
 };
 
-export type FeedQueryVariables = Exact<{ [key: string]: never; }>;
+export type FeedQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type FeedQuery = (
-  { __typename?: 'Query' }
-  & { feed?: Maybe<Array<Maybe<(
-    { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'content' | 'published' | 'authorId'>
-    & { author?: Maybe<(
-      { __typename?: 'User' }
-      & Pick<User, 'id' | 'name'>
-    )> }
-  )>>> }
-);
-
+export type FeedQuery = { __typename?: 'Query' } & {
+  feed?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Post' } & Pick<
+          Post,
+          'id' | 'title' | 'content' | 'published' | 'authorId'
+        > & {
+            author?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'name'>>;
+          }
+      >
+    >
+  >;
+};
 
 export const FeedDocument = gql`
-    query feed {
-  feed {
-    id
-    title
-    content
-    published
-    author {
+  query feed {
+    feed {
       id
-      name
+      title
+      content
+      published
+      author {
+        id
+        name
+      }
+      authorId
     }
-    authorId
   }
-}
-    `;
+`;
 
 /**
  * __useFeedQuery__
@@ -151,7 +150,23 @@ export const FeedDocument = gql`
  * @example
  * const { result, loading, error } = useFeedQuery();
  */
-export function useFeedQuery(options: VueApolloComposable.UseQueryOptions<FeedQuery, FeedQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<FeedQuery, FeedQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<FeedQuery, FeedQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, {}, options);
+export function useFeedQuery(
+  options:
+    | VueApolloComposable.UseQueryOptions<FeedQuery, FeedQueryVariables>
+    | VueCompositionApi.Ref<
+        VueApolloComposable.UseQueryOptions<FeedQuery, FeedQueryVariables>
+      >
+    | ReactiveFunction<
+        VueApolloComposable.UseQueryOptions<FeedQuery, FeedQueryVariables>
+      > = {},
+) {
+  return VueApolloComposable.useQuery<FeedQuery, FeedQueryVariables>(
+    FeedDocument,
+    {},
+    options,
+  );
 }
-export type FeedQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<FeedQuery, FeedQueryVariables>;
+export type FeedQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
+  FeedQuery,
+  FeedQueryVariables
+>;
