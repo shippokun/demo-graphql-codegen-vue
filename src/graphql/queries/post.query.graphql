@@ -4,11 +4,6 @@ query post($where: PostWhereUniqueInput!) {
     title
     content
     published
-    author {
-      id
-      name
-      email
-    }
     authorId
   }
 }

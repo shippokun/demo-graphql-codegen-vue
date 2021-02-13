@@ -4,11 +4,6 @@ query filterPosts($searchString: String) {
     title
     content
     published
-    author {
-      id
-      name
-      email
-    }
     authorId
   }
 }

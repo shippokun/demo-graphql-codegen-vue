@@ -4,10 +4,6 @@ query feed {
     title
     content
     published
-    author {
-      id
-      name
-    }
     authorId
   }
 }
