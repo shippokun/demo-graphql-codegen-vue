@@ -1,3 +1,5 @@
 type Query {
   feed: [Post]
+  post(where: PostWhereUniqueInput!): Post
+  filterPosts(searchString: String): [Post]
 }

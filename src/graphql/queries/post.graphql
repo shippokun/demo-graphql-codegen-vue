@@ -1,0 +1,14 @@
+query post($where: PostWhereUniqueInput!) {
+  post(where: $where) {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+      email
+    }
+    authorId
+  }
+}

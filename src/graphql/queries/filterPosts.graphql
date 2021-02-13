@@ -1,0 +1,14 @@
+query filterPosts($searchString: String) {
+  filterPosts(searchString: $searchString) {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+      email
+    }
+    authorId
+  }
+}

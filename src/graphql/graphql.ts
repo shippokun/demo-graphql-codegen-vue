@@ -122,6 +122,44 @@ export type FeedQuery = { __typename?: 'Query' } & {
   >;
 };
 
+export type FilterPostsQueryVariables = Exact<{
+  searchString?: Maybe<Scalars['String']>;
+}>;
+
+export type FilterPostsQuery = { __typename?: 'Query' } & {
+  filterPosts?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Post' } & Pick<
+          Post,
+          'id' | 'title' | 'content' | 'published' | 'authorId'
+        > & {
+            author?: Maybe<
+              { __typename?: 'User' } & Pick<User, 'id' | 'name' | 'email'>
+            >;
+          }
+      >
+    >
+  >;
+};
+
+export type PostQueryVariables = Exact<{
+  where: PostWhereUniqueInput;
+}>;
+
+export type PostQuery = { __typename?: 'Query' } & {
+  post?: Maybe<
+    { __typename?: 'Post' } & Pick<
+      Post,
+      'id' | 'title' | 'content' | 'published' | 'authorId'
+    > & {
+        author?: Maybe<
+          { __typename?: 'User' } & Pick<User, 'id' | 'name' | 'email'>
+        >;
+      }
+  >;
+};
+
 export const FeedDocument = gql`
   query feed {
     feed {
@@ -169,4 +207,124 @@ export function useFeedQuery(
 export type FeedQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
   FeedQuery,
   FeedQueryVariables
+>;
+export const FilterPostsDocument = gql`
+  query filterPosts($searchString: String) {
+    filterPosts(searchString: $searchString) {
+      id
+      title
+      content
+      published
+      author {
+        id
+        name
+        email
+      }
+      authorId
+    }
+  }
+`;
+
+/**
+ * __useFilterPostsQuery__
+ *
+ * To run a query within a Vue component, call `useFilterPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilterPostsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useFilterPostsQuery({
+ *   searchString: // value for 'searchString'
+ * });
+ */
+export function useFilterPostsQuery(
+  variables:
+    | FilterPostsQueryVariables
+    | VueCompositionApi.Ref<FilterPostsQueryVariables>
+    | ReactiveFunction<FilterPostsQueryVariables> = {},
+  options:
+    | VueApolloComposable.UseQueryOptions<
+        FilterPostsQuery,
+        FilterPostsQueryVariables
+      >
+    | VueCompositionApi.Ref<
+        VueApolloComposable.UseQueryOptions<
+          FilterPostsQuery,
+          FilterPostsQueryVariables
+        >
+      >
+    | ReactiveFunction<
+        VueApolloComposable.UseQueryOptions<
+          FilterPostsQuery,
+          FilterPostsQueryVariables
+        >
+      > = {},
+) {
+  return VueApolloComposable.useQuery<
+    FilterPostsQuery,
+    FilterPostsQueryVariables
+  >(FilterPostsDocument, variables, options);
+}
+export type FilterPostsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
+  FilterPostsQuery,
+  FilterPostsQueryVariables
+>;
+export const PostDocument = gql`
+  query post($where: PostWhereUniqueInput!) {
+    post(where: $where) {
+      id
+      title
+      content
+      published
+      author {
+        id
+        name
+        email
+      }
+      authorId
+    }
+  }
+`;
+
+/**
+ * __usePostQuery__
+ *
+ * To run a query within a Vue component, call `usePostQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = usePostQuery({
+ *   where: // value for 'where'
+ * });
+ */
+export function usePostQuery(
+  variables:
+    | PostQueryVariables
+    | VueCompositionApi.Ref<PostQueryVariables>
+    | ReactiveFunction<PostQueryVariables>,
+  options:
+    | VueApolloComposable.UseQueryOptions<PostQuery, PostQueryVariables>
+    | VueCompositionApi.Ref<
+        VueApolloComposable.UseQueryOptions<PostQuery, PostQueryVariables>
+      >
+    | ReactiveFunction<
+        VueApolloComposable.UseQueryOptions<PostQuery, PostQueryVariables>
+      > = {},
+) {
+  return VueApolloComposable.useQuery<PostQuery, PostQueryVariables>(
+    PostDocument,
+    variables,
+    options,
+  );
+}
+export type PostQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
+  PostQuery,
+  PostQueryVariables
 >;
