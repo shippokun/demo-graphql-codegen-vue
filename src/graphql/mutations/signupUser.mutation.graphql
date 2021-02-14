@@ -1,0 +1,11 @@
+#import "../fragments/user.fragmnet.graphql"
+#import "../fragments/post.fragment.graphql"
+
+mutation signupUser($data: UserCreateInput!) {
+  signupUser(data: $data) {
+    ...UserInfo
+    posts {
+      ...PostInfo
+    }
+  }
+}

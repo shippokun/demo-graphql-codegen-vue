@@ -1,0 +1,7 @@
+fragment PostInfo on Post {
+  id
+  title
+  content
+  published
+  authorId
+}

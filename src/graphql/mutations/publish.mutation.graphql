@@ -1,7 +1,7 @@
 #import "../fragments/post.fragment.graphql"
 
-query post($where: PostWhereUniqueInput!) {
-  post(where: $where) {
+mutation publish($id: Int) {
+  publish(id: $id) {
     ...PostInfo
   }
 }

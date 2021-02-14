@@ -1,9 +1,11 @@
+#import "../fragments/user.fragment.graphql"
+#import "../fragments/post.fragment.graphql"
+
 query feed {
   feed {
-    id
-    title
-    content
-    published
-    authorId
+    ...PostInfo
+    author {
+      ...UserInfo
+    }
   }
 }
