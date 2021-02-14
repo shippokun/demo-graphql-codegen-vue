@@ -1,13 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <div v-if="loading">loading...</div>
+    <div v-else>{{ result.feed[0] }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
+import { useFeedQuery } from '@/graphql/generated/graphql';
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    const { result, loading } = useFeedQuery();
+    return { result, loading };
+  },
+});
 </script>
 
 <style>
