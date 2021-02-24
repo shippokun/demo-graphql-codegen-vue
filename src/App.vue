@@ -5,6 +5,7 @@
       <p>{{ result }}</p>
       <button @click="toggleEnable">トグル</button>
     </div>
+    <main />
   </div>
 </template>
 
@@ -16,8 +17,12 @@ import {
   FeedQueryVariables,
 } from '@/graphql/generated/graphql';
 import { UseQueryOptions } from '@vue/apollo-composable';
+import Main from './main.vue';
 
 export default defineComponent({
+  components: {
+    Main,
+  },
   setup() {
     const feedQueryOptions = reactive<
       UseQueryOptions<FeedQuery, FeedQueryVariables>
