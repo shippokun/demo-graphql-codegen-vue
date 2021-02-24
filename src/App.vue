@@ -1,18 +1,37 @@
 <template>
   <div id="app">
     <div v-if="loading">loading...</div>
-    <div v-else>{{ result.feed[0] }}</div>
+    <div v-else>
+      <p>{{ result }}</p>
+      <button @click="toggleEnable">トグル</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import { useFeedQuery } from '@/graphql/generated/graphql';
+import { defineComponent, reactive } from '@vue/composition-api';
+import {
+  useFeedQuery,
+  FeedQuery,
+  FeedQueryVariables,
+} from '@/graphql/generated/graphql';
+import { UseQueryOptions } from '@vue/apollo-composable';
 
 export default defineComponent({
   setup() {
-    const { result, loading } = useFeedQuery();
-    return { result, loading };
+    const feedQueryOptions = reactive<
+      UseQueryOptions<FeedQuery, FeedQueryVariables>
+    >({
+      enabled: false,
+    });
+    const { onResult, loading, result } = useFeedQuery(feedQueryOptions);
+    const toggleEnable = () => {
+      feedQueryOptions.enabled = true;
+    };
+    onResult(() => {
+      console.log(result);
+    });
+    return { result, loading, toggleEnable };
   },
 });
 </script>
