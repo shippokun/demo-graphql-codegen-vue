@@ -7,6 +7,7 @@ import { UseQueryOptions } from '@vue/apollo-composable';
 import { ref } from '@vue/composition-api';
 
 export const useFeed = (query: typeof useFeedQuery) => {
+  const initState = ref<FeedQuery>({});
   const options = ref<UseQueryOptions<FeedQuery, FeedQueryVariables>>({
     enabled: false,
   });
@@ -27,5 +28,5 @@ export const useFeed = (query: typeof useFeedQuery) => {
     });
   };
 
-  return { loading, fetch, result };
+  return { loading, fetch, result, initState };
 };

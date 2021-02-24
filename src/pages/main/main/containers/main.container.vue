@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from '@vue/composition-api';
-import { useFeedQuery, FeedQuery } from '@/graphql/generated/graphql';
+import { defineComponent, watchEffect, ref } from '@vue/composition-api';
+import { useFeedQuery } from '@/graphql/generated/graphql';
 import { useFeed } from './feed.query';
 import { MainComponent } from '../components';
 
@@ -15,8 +15,9 @@ export default defineComponent({
   name: 'MainContainer',
   components: { MainComponent },
   setup() {
-    const { loading, fetch } = useFeed(useFeedQuery);
-    const result = ref<FeedQuery>({});
+    const { loading, fetch, initState } = useFeed(useFeedQuery);
+
+    const result = ref(initState);
 
     watchEffect(async () => {
       result.value = await fetch();
