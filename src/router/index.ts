@@ -1,4 +1,4 @@
-import Main from '@/main.vue';
+import { Main } from '@/pages';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
