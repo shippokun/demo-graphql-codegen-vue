@@ -1,35 +1,53 @@
 # demo-graphql-codegen-vue
 
-## Project setup
+## 事前準備
 
+### API 編
+
+Prisma x GraphQL で簡単に API を導入する
+
+```bash
+cd ..   # 別ディレクトリへ移動
+git clone git@github.com:prisma/prisma-examples.git --depth=1　# サンプルプログラムをクローン
 ```
+
+依存関係のインストール
+
+```bash
+cd prisma-examples/typescript/graphql-apollo-server
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Client 編
 
-```
-npm run serve
-```
+依存関係のインストール
 
-### Compiles and minifies for production
-
-```
-npm run build
+```bash
+npm install
 ```
 
-### Run your unit tests
+## 開発
 
-```
-npm run test:unit
-```
+Compiles and hot-reloads for development
 
-### Lints and fixes files
-
-```
-npm run lint
+```bash
+npm run start
 ```
 
-### Customize configuration
+Run your unit tests
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```bash
+npm run test
+```
+
+codegen
+
+```bash
+# API サーバー起動
+cd ../prisma-examples/typescript/graphql-apollo-server
+npm run dev
+
+# Client codegen command
+cd ../../../demo-graphql-codegen-vue
+npm run generate
+```
