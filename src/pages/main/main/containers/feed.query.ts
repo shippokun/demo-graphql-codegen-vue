@@ -10,14 +10,24 @@ export const useFeedLazyQuery = (variables?: FeedQueryVariables) => {
 };
 
 export const useFeed = (variables?: FeedQueryVariables) => {
-  const { result, error, loading, load, onError, onResult } = useFeedLazyQuery(
-    variables,
-  );
+  const {
+    result,
+    error,
+    loading,
+    load,
+    refetch,
+    onError,
+    onResult,
+  } = useFeedLazyQuery(variables);
 
   const feed = useResult(result, null, data => data.feed);
 
   const fetch = (variables?: FeedQueryVariables): Promise<FeedQuery> => {
-    load(undefined, variables);
+    if (result.value) {
+      refetch(variables);
+    } else {
+      load(undefined, variables);
+    }
     return new Promise((resolve, reject) => {
       onResult(() => resolve(result.value));
       onError(() => reject(error.value));
