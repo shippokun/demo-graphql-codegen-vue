@@ -1,32 +1,28 @@
 import {
+  FeedDocument,
   FeedQuery,
   FeedQueryVariables,
-  useFeedQuery,
 } from '@/graphql/generated/graphql';
-import { UseQueryOptions } from '@vue/apollo-composable';
-import { ref } from '@vue/composition-api';
+import { useLazyQuery, useResult } from '@vue/apollo-composable';
 
-export const useFeed = (query: typeof useFeedQuery) => {
-  const initState = ref<FeedQuery>({});
-  const options = ref<UseQueryOptions<FeedQuery, FeedQueryVariables>>({
-    enabled: false,
-  });
-  const { result, error, loading } = query(options);
+export const useFeedLazyQuery = (variables?: FeedQueryVariables) => {
+  return useLazyQuery<FeedQuery>(FeedDocument, variables);
+};
 
-  const fetch = (): Promise<FeedQuery> => {
-    options.value.enabled = true;
+export const useFeed = (variables?: FeedQueryVariables) => {
+  const { result, error, loading, load, onError, onResult } = useFeedLazyQuery(
+    variables,
+  );
+
+  const feed = useResult(result, null, data => data.feed);
+
+  const fetch = (variables?: FeedQueryVariables): Promise<FeedQuery> => {
+    load(undefined, variables);
     return new Promise((resolve, reject) => {
-      if (loading.value) {
-        // ループ
-      } else {
-        if (error.value) {
-          reject(error);
-        } else {
-          resolve(result.value);
-        }
-      }
+      onResult(() => resolve(result.value));
+      onError(() => reject(error.value));
     });
   };
 
-  return { loading, fetch, result, initState };
+  return { loading, fetch, result, feed, onResult, onError } as const;
 };

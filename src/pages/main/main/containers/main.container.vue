@@ -2,12 +2,12 @@
   <div v-if="loading">loading...</div>
   <div v-else>
     <main-component :result="result" />
+    <button @click="onFetch">ボタン</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect, ref } from '@vue/composition-api';
-import { useFeedQuery } from '@/graphql/generated/graphql';
+import { defineComponent } from '@vue/composition-api';
 import { useFeed } from './feed.query';
 import { MainComponent } from '../components';
 
@@ -15,15 +15,13 @@ export default defineComponent({
   name: 'MainContainer',
   components: { MainComponent },
   setup() {
-    const { loading, fetch, initState } = useFeed(useFeedQuery);
+    const { loading, fetch, result } = useFeed();
 
-    const result = ref(initState);
+    const onFetch = () => {
+      fetch();
+    };
 
-    watchEffect(async () => {
-      result.value = await fetch();
-    });
-
-    return { loading, result };
+    return { result, loading, onFetch };
   },
 });
 </script>
