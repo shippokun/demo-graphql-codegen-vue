@@ -6,17 +6,7 @@
 
 Prisma x GraphQL で簡単に API を導入する
 
-```bash
-cd ..   # 別ディレクトリへ移動
-git clone git@github.com:prisma/prisma-examples.git --depth=1　# サンプルプログラムをクローン
-```
-
-依存関係のインストール
-
-```bash
-cd prisma-examples/typescript/graphql-apollo-server
-npm install
-```
+[API server](https://github.com/shippokun/prisma-graphql-apollo-server)
 
 ### Client 編
 
@@ -43,11 +33,7 @@ npm run test
 codegen
 
 ```bash
-# API サーバー起動
-cd ../prisma-examples/typescript/graphql-apollo-server
-npm run dev
-
+# 事前に API server を起動していること
 # Client codegen command
-cd ../../../demo-graphql-codegen-vue
 npm run generate
 ```
