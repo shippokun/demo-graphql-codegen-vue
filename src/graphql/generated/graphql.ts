@@ -17,6 +17,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: any;
 };
 
 export type Query = {
@@ -60,22 +61,22 @@ export type MutationPublishArgs = {
   id?: Maybe<Scalars['Int']>;
 };
 
-export type Post = {
-  __typename?: 'Post';
-  id: Scalars['Int'];
-  title: Scalars['String'];
-  content?: Maybe<Scalars['String']>;
-  published: Scalars['Boolean'];
-  author?: Maybe<User>;
-  authorId?: Maybe<Scalars['Int']>;
-};
-
 export type User = {
   __typename?: 'User';
   id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   posts: Array<Post>;
+};
+
+export type Post = {
+  __typename?: 'Post';
+  id: Scalars['Int'];
+  title: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
+  published: Scalars['Boolean'];
+  author: User;
+  authorId: Scalars['Int'];
 };
 
 export type PostWhereUniqueInput = {
@@ -86,23 +87,46 @@ export type UserCreateInput = {
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   posts?: Maybe<PostCreateNestedManyWithoutAuthorInput>;
+  profile?: Maybe<ProfileCreateNestedOneWithoutUserInput>;
 };
 
 export type PostCreateNestedManyWithoutAuthorInput = {
   create?: Maybe<Array<PostCreateWithoutAuthorInput>>;
-  connectOrCreate?: Maybe<Array<PostCreateOrConnectWithoutauthorInput>>;
+  connectOrCreate?: Maybe<Array<PostCreateOrConnectWithoutAuthorInput>>;
   connect?: Maybe<Array<PostWhereUniqueInput>>;
 };
 
-export type PostCreateWithoutAuthorInput = {
-  content?: Maybe<Scalars['String']>;
-  published?: Maybe<Scalars['Boolean']>;
-  title: Scalars['String'];
+export type ProfileCreateNestedOneWithoutUserInput = {
+  create?: Maybe<ProfileCreateWithoutUserInput>;
+  connectOrCreate?: Maybe<ProfileCreateOrConnectWithoutUserInput>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
 };
 
-export type PostCreateOrConnectWithoutauthorInput = {
+export type PostCreateWithoutAuthorInput = {
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  title: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
+  published?: Maybe<Scalars['Boolean']>;
+};
+
+export type PostCreateOrConnectWithoutAuthorInput = {
   where: PostWhereUniqueInput;
   create: PostCreateWithoutAuthorInput;
+};
+
+export type ProfileCreateWithoutUserInput = {
+  bio?: Maybe<Scalars['String']>;
+};
+
+export type ProfileCreateOrConnectWithoutUserInput = {
+  where: ProfileWhereUniqueInput;
+  create: ProfileCreateWithoutUserInput;
+};
+
+export type ProfileWhereUniqueInput = {
+  id?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['Int']>;
 };
 
 export type PostInfoFragment = { __typename?: 'Post' } & Pick<
@@ -158,7 +182,7 @@ export type FeedQuery = { __typename?: 'Query' } & {
     Array<
       Maybe<
         { __typename?: 'Post' } & {
-          author?: Maybe<{ __typename?: 'User' } & UserInfoFragment>;
+          author: { __typename?: 'User' } & UserInfoFragment;
         } & PostInfoFragment
       >
     >
