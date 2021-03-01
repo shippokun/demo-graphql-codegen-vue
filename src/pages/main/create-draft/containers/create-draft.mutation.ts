@@ -4,6 +4,12 @@ import {
   useCreateDraftMutation,
 } from '@/graphql/generated/graphql';
 
+export const initVariables: CreateDraftMutationVariables = {
+  title: '',
+  content: '',
+  authorEmail: '',
+};
+
 export const useCreateDraft = (
   initVariables?: CreateDraftMutationVariables,
 ) => {
