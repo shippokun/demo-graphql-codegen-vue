@@ -4,7 +4,9 @@ import {
   useCreateDraftMutation,
 } from '@/graphql/generated/graphql';
 
-export const useCreateDraft = (initVariables: CreateDraftMutationVariables) => {
+export const useCreateDraft = (
+  initVariables?: CreateDraftMutationVariables,
+) => {
   const {
     mutate,
     loading,
@@ -14,8 +16,8 @@ export const useCreateDraft = (initVariables: CreateDraftMutationVariables) => {
     onError,
   } = useCreateDraftMutation({ variables: initVariables });
 
-  const fetch = (
-    variables: CreateDraftMutationVariables,
+  const create = (
+    variables?: CreateDraftMutationVariables,
   ): Promise<CreateDraftMutation | null | undefined> => {
     mutate(variables);
     return new Promise((resolve, reject) => {
@@ -24,5 +26,5 @@ export const useCreateDraft = (initVariables: CreateDraftMutationVariables) => {
     });
   };
 
-  return { loading, called, fetch, onError } as const;
+  return { loading, called, create, onError } as const;
 };

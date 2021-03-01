@@ -13,8 +13,6 @@ import { useCreateDraft } from './create-draft.mutation';
 import { CreateDraftMutationVariables } from '@/graphql/generated/graphql';
 import { RouterPath } from '@/models';
 
-// import { useGlobalMutationLoading } from '@vue/apollo-composable';
-
 export default defineComponent({
   name: 'CreateDraftContainer',
   components: {
@@ -26,9 +24,10 @@ export default defineComponent({
       content: '',
       authorEmail: '',
     });
-    const { fetch, loading } = useCreateDraft(initVariables);
+    const { create, loading } = useCreateDraft();
+
     const mutation = async (variables: CreateDraftMutationVariables) => {
-      await fetch(variables).then(res => {
+      await create(variables).then(res => {
         console.log(res);
         root.$router.push({
           path: `${RouterPath.POST}?id=${res?.createDraft?.id}`,
