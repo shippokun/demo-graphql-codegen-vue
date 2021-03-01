@@ -23,8 +23,7 @@ export default defineComponent({
   props: {
     posts: {
       type: Array as PropType<Pick<FilterPostsQuery, 'filterPosts'>>,
-      required: false,
-      default: [{}],
+      required: true,
     },
     text: {
       type: String,
