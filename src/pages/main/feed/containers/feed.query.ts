@@ -1,13 +1,5 @@
-import {
-  FeedDocument,
-  FeedQuery,
-  FeedQueryVariables,
-} from '@/graphql/generated/graphql';
-import { useQuery, useResult } from '@vue/apollo-composable';
-
-export const useFeedQuery = () => {
-  return useQuery<FeedQuery, FeedQueryVariables>(FeedDocument);
-};
+import { FeedQuery, useFeedQuery } from '@/graphql/generated/graphql';
+import { useResult } from '@vue/apollo-composable';
 
 export const useFeed = () => {
   const context = useFeedQuery();

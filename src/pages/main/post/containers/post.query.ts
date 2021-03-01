@@ -1,13 +1,9 @@
 import {
-  PostDocument,
   PostQuery,
   PostQueryVariables,
+  usePostQuery,
 } from '@/graphql/generated/graphql';
-import { useQuery, useResult } from '@vue/apollo-composable';
-
-export const usePostQuery = (variables: PostQueryVariables) => {
-  return useQuery<PostQuery, PostQueryVariables>(PostDocument, variables);
-};
+import { useResult } from '@vue/apollo-composable';
 
 export const usePost = (variables: PostQueryVariables) => {
   const context = usePostQuery(variables);
