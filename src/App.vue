@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <header-page />
     <router-view />
   </div>
 </template>
@@ -7,7 +8,13 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 
-export default defineComponent({});
+import { HeaderPage } from '@/pages';
+
+export default defineComponent({
+  components: {
+    HeaderPage,
+  },
+});
 </script>
 
 <style>

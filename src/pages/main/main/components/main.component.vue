@@ -1,22 +1,17 @@
 <template>
-  <div>{{ result }}</div>
+  <div>
+    <h1>Vue x GraphQL x Codegen Sample Component</h1>
+    <p>Feed: Query</p>
+    <p>Post: Query with value</p>
+    <p>FilterPosts: LazyQuery with value</p>
+    <p>CreateDraft: Mutation</p>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@vue/composition-api';
-import { FeedQuery } from '@/graphql/generated/graphql';
+import { defineComponent } from '@vue/composition-api';
+
 export default defineComponent({
   name: 'MainComponent',
-  props: {
-    result: {
-      type: Object as PropType<FeedQuery>,
-      require: true,
-    },
-  },
-  setup(props) {
-    return { props };
-  },
 });
 </script>
-
-<style></style>
