@@ -10,7 +10,8 @@ export const useFeedQuery = () => {
 };
 
 export const useFeed = () => {
-  const { result, error, loading, refetch, onError, onResult } = useFeedQuery();
+  const context = useFeedQuery();
+  const { result, error, refetch, onError, onResult } = context;
 
   const feed = useResult(result, null, data => data.feed);
 
@@ -24,5 +25,5 @@ export const useFeed = () => {
     });
   };
 
-  return { result, loading, feed, fetch, onError, onResult } as const;
+  return { feed, fetch, ...context } as const;
 };

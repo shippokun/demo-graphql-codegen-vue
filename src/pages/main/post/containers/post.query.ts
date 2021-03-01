@@ -10,9 +10,8 @@ export const usePostQuery = (variables: PostQueryVariables) => {
 };
 
 export const usePost = (variables: PostQueryVariables) => {
-  const { result, error, loading, refetch, onError, onResult } = usePostQuery(
-    variables,
-  );
+  const context = usePostQuery(variables);
+  const { result, error, refetch, onError, onResult } = context;
 
   const post = useResult(result, null, data => data.post);
 
@@ -26,5 +25,5 @@ export const usePost = (variables: PostQueryVariables) => {
     });
   };
 
-  return { result, loading, post, fetch, onError, onResult } as const;
+  return { post, fetch, ...context } as const;
 };

@@ -15,15 +15,8 @@ export const useFilterPostsQuery = (variables: FilterPostsQueryVariables) => {
 export const useFilterPosts = (
   variables: FilterPostsQueryVariables = { searchString: '' },
 ) => {
-  const {
-    result,
-    error,
-    loading,
-    load,
-    refetch,
-    onError,
-    onResult,
-  } = useFilterPostsQuery(variables);
+  const context = useFilterPostsQuery(variables);
+  const { result, error, load, refetch, onError, onResult } = context;
 
   const filterPosts = useResult(result, [{}], data => data.filterPosts);
 
@@ -41,12 +34,5 @@ export const useFilterPosts = (
     });
   };
 
-  return {
-    result,
-    loading,
-    filterPosts,
-    fetch,
-    onError,
-    onResult,
-  } as const;
+  return { fetch, filterPosts, ...context } as const;
 };

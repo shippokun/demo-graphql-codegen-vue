@@ -7,14 +7,8 @@ import {
 export const useCreateDraft = (
   initVariables?: CreateDraftMutationVariables,
 ) => {
-  const {
-    mutate,
-    loading,
-    error,
-    called,
-    onDone,
-    onError,
-  } = useCreateDraftMutation({ variables: initVariables });
+  const context = useCreateDraftMutation({ variables: initVariables });
+  const { mutate, error, onDone, onError } = context;
 
   const create = (
     variables?: CreateDraftMutationVariables,
@@ -26,5 +20,5 @@ export const useCreateDraft = (
     });
   };
 
-  return { loading, called, create, onError } as const;
+  return { create, ...context } as const;
 };
