@@ -13,6 +13,7 @@ generates:
     config:
       withCompositionFunctions: true
       constEnums: true
+      skipTypename: true
     hooks:
       afterOneFileWrite:
         - prettier --write
