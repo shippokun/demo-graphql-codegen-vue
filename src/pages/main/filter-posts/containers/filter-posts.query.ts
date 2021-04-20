@@ -18,7 +18,7 @@ export const useFilterPosts = (
   const context = useFilterPostsQuery(variables);
   const { result, error, load, refetch, onError, onResult } = context;
 
-  const filterPosts = useResult(result, [{}], data => data.filterPosts);
+  const filterPosts = useResult(result, null, data => data.filterPosts);
 
   const fetch = (
     fetchVariables: FilterPostsQueryVariables,
