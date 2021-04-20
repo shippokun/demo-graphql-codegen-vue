@@ -21,7 +21,6 @@ export type Scalars = {
 };
 
 export type Query = {
-  __typename?: 'Query';
   post?: Maybe<Post>;
   feed?: Maybe<Array<Maybe<Post>>>;
   filterPosts?: Maybe<Array<Maybe<Post>>>;
@@ -36,7 +35,6 @@ export type QueryFilterPostsArgs = {
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   signupUser: User;
   deleteOnePost?: Maybe<Post>;
   createDraft?: Maybe<Post>;
@@ -62,7 +60,6 @@ export type MutationPublishArgs = {
 };
 
 export type User = {
-  __typename?: 'User';
   id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   email: Scalars['String'];
@@ -70,7 +67,6 @@ export type User = {
 };
 
 export type Post = {
-  __typename?: 'Post';
   id: Scalars['Int'];
   title: Scalars['String'];
   content?: Maybe<Scalars['String']>;
@@ -129,15 +125,12 @@ export type ProfileWhereUniqueInput = {
   userId?: Maybe<Scalars['Int']>;
 };
 
-export type PostInfoFragment = { __typename?: 'Post' } & Pick<
+export type PostInfoFragment = Pick<
   Post,
   'id' | 'title' | 'content' | 'published' | 'authorId'
 >;
 
-export type UserInfoFragment = { __typename?: 'User' } & Pick<
-  User,
-  'id' | 'name' | 'email'
->;
+export type UserInfoFragment = Pick<User, 'id' | 'name' | 'email'>;
 
 export type CreateDraftMutationVariables = Exact<{
   title: Scalars['String'];
@@ -145,65 +138,47 @@ export type CreateDraftMutationVariables = Exact<{
   authorEmail: Scalars['String'];
 }>;
 
-export type CreateDraftMutation = { __typename?: 'Mutation' } & {
-  createDraft?: Maybe<{ __typename?: 'Post' } & PostInfoFragment>;
-};
+export type CreateDraftMutation = { createDraft?: Maybe<PostInfoFragment> };
 
 export type DeleteOnePostMutationVariables = Exact<{
   where: PostWhereUniqueInput;
 }>;
 
-export type DeleteOnePostMutation = { __typename?: 'Mutation' } & {
-  deleteOnePost?: Maybe<{ __typename?: 'Post' } & PostInfoFragment>;
-};
+export type DeleteOnePostMutation = { deleteOnePost?: Maybe<PostInfoFragment> };
 
 export type PublishMutationVariables = Exact<{
   id?: Maybe<Scalars['Int']>;
 }>;
 
-export type PublishMutation = { __typename?: 'Mutation' } & {
-  publish?: Maybe<{ __typename?: 'Post' } & PostInfoFragment>;
-};
+export type PublishMutation = { publish?: Maybe<PostInfoFragment> };
 
 export type SignupUserMutationVariables = Exact<{
   data: UserCreateInput;
 }>;
 
-export type SignupUserMutation = { __typename?: 'Mutation' } & {
-  signupUser: { __typename?: 'User' } & {
-    posts: Array<{ __typename?: 'Post' } & PostInfoFragment>;
-  } & UserInfoFragment;
+export type SignupUserMutation = {
+  signupUser: { posts: Array<PostInfoFragment> } & UserInfoFragment;
 };
 
 export type FeedQueryVariables = Exact<{ [key: string]: never }>;
 
-export type FeedQuery = { __typename?: 'Query' } & {
-  feed?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Post' } & {
-          author: { __typename?: 'User' } & UserInfoFragment;
-        } & PostInfoFragment
-      >
-    >
-  >;
+export type FeedQuery = {
+  feed?: Maybe<Array<Maybe<{ author: UserInfoFragment } & PostInfoFragment>>>;
 };
 
 export type FilterPostsQueryVariables = Exact<{
   searchString?: Maybe<Scalars['String']>;
 }>;
 
-export type FilterPostsQuery = { __typename?: 'Query' } & {
-  filterPosts?: Maybe<Array<Maybe<{ __typename?: 'Post' } & PostInfoFragment>>>;
+export type FilterPostsQuery = {
+  filterPosts?: Maybe<Array<Maybe<PostInfoFragment>>>;
 };
 
 export type PostQueryVariables = Exact<{
   where: PostWhereUniqueInput;
 }>;
 
-export type PostQuery = { __typename?: 'Query' } & {
-  post?: Maybe<{ __typename?: 'Post' } & PostInfoFragment>;
-};
+export type PostQuery = { post?: Maybe<PostInfoFragment> };
 
 export const PostInfoFragmentDoc = gql`
   fragment PostInfo on Post {
